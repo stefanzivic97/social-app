@@ -1,10 +1,9 @@
 import { 
     Model, Table, Column, AllowNull,
-    DataType, Unique,
-    PrimaryKey, AutoIncrement, IsUUID,
-    HasMany 
+    PrimaryKey, DataType,
+    BeforeCreate, BeforeUpdate
 } from 'sequelize-typescript';
-import { Min, Max } from 'class-validator'
+import { Min, Max } from 'class-validator';
 
 @Table
 export class UserModel extends Model<UserModel> {
@@ -37,11 +36,15 @@ export class UserModel extends Model<UserModel> {
     @Column({ type: DataType.STRING })
     public email!: string;
 
+    @AllowNull(true)
+    @Column({ type: DataType.DATE })
+    public dateOfBirth!: Date;
+
     @AllowNull(false)
     @Min(5)
     @Max(40)
     @Column({ type: DataType.STRING })
-    private password!: string;
+    public password!: string;
 
     @AllowNull(true)
     @Max(255)
@@ -52,5 +55,35 @@ export class UserModel extends Model<UserModel> {
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     public verified!: Boolean;
 
-    
+    @AllowNull(true)
+    @Column({ type: DataType.STRING })
+    public driveFolderId!: string;
+
+    @AllowNull(true)
+    @Column({ type: DataType.STRING })
+    public resetToken!: string;
+
+    @AllowNull(true)
+    @Column({ type: DataType.DATE })
+    public resetTokenExpiration!: Date;
+
+    @AllowNull(true)
+    @Column({ type: DataType.STRING })
+    public verifyId!: string;
+
+    @Column({ type: DataType.BOOLEAN })
+    public deactivated!: Boolean;
+
+    /**
+     * 
+     * @param instance 
+     */
+    @BeforeCreate
+    @BeforeUpdate
+    public static makeUpperCase (instance: UserModel): void {
+        let firstCarater: string = instance.firstName.slice(0, 1);
+        let restOfString: string = instance.firstName.toUpperCase();
+        instance.firstName = firstCarater + restOfString;
+    }
+
 }
