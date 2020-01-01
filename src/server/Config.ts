@@ -2,7 +2,7 @@ export namespace ServerConfiguration {
     
     export class Config {
 
-        private port: number;
+        private port: number | undefined;
 
         constructor () {
 
