@@ -5,7 +5,7 @@ import {
     ForeignKey, BelongsTo
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
-import { UserModel } from './User'
+import { UserModel } from './Users'
 
 export class UserDetailsModel extends Model<UserDetailsModel> {
 
@@ -49,5 +49,5 @@ export class UserDetailsModel extends Model<UserDetailsModel> {
     
     @BelongsTo(() => UserModel)
     public user!: UserModel;
-    
+
 }

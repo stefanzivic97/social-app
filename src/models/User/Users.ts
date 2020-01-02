@@ -11,8 +11,6 @@ import { UserDetailsModel } from './User-details';
 @Table
 export class UserModel extends Model<UserModel> {
 
-    public _fullName!: String; 
-
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
     public readonly id!: String;
@@ -54,12 +52,13 @@ export class UserModel extends Model<UserModel> {
     @AllowNull(true)
     @Max(255)
     @Column({ type: DataType.STRING })
-    public image!: String;
+    public imageUrl!: String;
 
     @AllowNull(false)
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     public verified!: Boolean;
 
+    // ! Need to be false
     @AllowNull(true)
     @Column({ type: DataType.STRING })
     public driveFolderId!: String;
@@ -93,7 +92,7 @@ export class UserModel extends Model<UserModel> {
 
     /**
      * Format string before insert in database
-     * @param instance 
+     * @param instance of UserModel
      */
     @BeforeCreate
     @BeforeUpdate

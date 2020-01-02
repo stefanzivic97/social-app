@@ -8,6 +8,7 @@ import {
 import { Min, Max } from 'class-validator';
 import { UserModel } from '../User/Users'
 import { LikeModel } from './Likes';
+
 @Table
 export class PostModel extends Model<PostModel> {
 
