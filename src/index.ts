@@ -4,7 +4,9 @@ const server = new ServerConfiguration.Server();
 
 const options = {
     http: 'http',
-    port: 8080
+    port: 8090
 }
 
 server.ApolloServer(options)
+import { UserInputData } from './graphql/schema/User/user-inp'
+console.log(new Date())

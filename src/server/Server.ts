@@ -1,9 +1,12 @@
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
+import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
 import { ApolloServer } from 'apollo-server-express';
 import express, { Application, Request, Response, NextFunction } from 'express';
+
+import { UserResolver } from '../graphql/resolver/User/User';
 
 export namespace ServerConfiguration {
     
@@ -26,7 +29,7 @@ export namespace ServerConfiguration {
 
         public async ApolloServer (options: { http: string | undefined; port: number}) {
             
-            this.resolvers = [];
+            const resolvers = [UserResolver];
             this.port = options.port;
 
             try {
@@ -36,10 +39,10 @@ export namespace ServerConfiguration {
                 }
 
                 if (options.http == 'http' || options.http == undefined) {
-                    this.serverSetup(this.resolvers);
+                    this.serverSetup(resolvers);
                     this.listenHttp(this.port);
                 } else if (options.http == 'https') {
-                    this.serverSetup(this.resolvers);
+                    this.serverSetup(resolvers);
                     this.listenHttps(this.port)
                 }
 

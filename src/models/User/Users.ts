@@ -13,13 +13,13 @@ export class UserModel extends Model<UserModel> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
-    public readonly id!: String;
+    public readonly id!: string;
 
     @AllowNull(false)
     @Min(4)
     @Max(8)
-    @Column
-    public username!: String;
+    @Column({ type: DataType.STRING })
+    public username!: string;
 
     @AllowNull(false)
     @Min(3)
@@ -31,13 +31,13 @@ export class UserModel extends Model<UserModel> {
     @Min(3)
     @Max(25)
     @Column({ type: DataType.STRING })
-    public lastName!: String;
+    public lastName!: string;
 
     @AllowNull(false)
     @Min(4)
     @Max(25)
     @Column({ type: DataType.STRING })
-    public email!: String;
+    public email!: string;
 
     @AllowNull(true)
     @Column({ type: DataType.DATE })
@@ -47,12 +47,23 @@ export class UserModel extends Model<UserModel> {
     @Min(5)
     @Max(40)
     @Column({ type: DataType.STRING })
-    public password!: String;
+    private password!: string;
+
+    get getPassword () {
+        return this.password;
+    }
+
+    set setPassword (psw: string) {
+        if (psw && psw.length > 40 || psw && psw.length < 5) {
+            throw new Error('Password lenght: MIN(5) and Max(40)!');
+        }
+        this.password = psw;
+    }
 
     @AllowNull(true)
     @Max(255)
     @Column({ type: DataType.STRING })
-    public imageUrl!: String;
+    public imageUrl!: string;
 
     @AllowNull(false)
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
@@ -61,11 +72,11 @@ export class UserModel extends Model<UserModel> {
     // ! Need to be false
     @AllowNull(true)
     @Column({ type: DataType.STRING })
-    public driveFolderId!: String;
+    public driveFolderId!: string;
 
     @AllowNull(true)
     @Column({ type: DataType.STRING })
-    public resetToken!: String;
+    public resetToken!: string;
 
     @AllowNull(true)
     @Column({ type: DataType.DATE })
@@ -73,7 +84,7 @@ export class UserModel extends Model<UserModel> {
 
     @AllowNull(true)
     @Column({ type: DataType.STRING })
-    public verifyId!: String;
+    public verifyId!: string;
 
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     public deactivated!: Boolean;
