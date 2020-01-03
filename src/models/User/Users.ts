@@ -49,7 +49,7 @@ export class UserModel extends Model<UserModel> {
     @Column({ type: DataType.STRING })
     private password!: string;
 
-    get getPassword () {
+    get getPassword (): string | undefined {
         return this.password;
     }
 
