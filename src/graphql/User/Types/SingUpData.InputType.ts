@@ -1,9 +1,9 @@
 import { InputType, Field,  } from 'type-graphql';
 import { MinLength } from 'class-validator';
-import { User } from '../schema/User/User.type';
+import User  from '../Types/User.ObjectType';
 
 @InputType({ description: '' })
-export class InpSingUpData implements Partial<User> {
+export class SingUpData implements Partial<User> {
     
     @MinLength(4, {
         message: 'Username must be at least 4 characters'

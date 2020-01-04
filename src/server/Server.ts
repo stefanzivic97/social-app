@@ -6,8 +6,9 @@ import { buildSchema } from 'type-graphql';
 import { ApolloServer } from 'apollo-server-express';
 import express, { Application, Request, Response, NextFunction } from 'express';
 
-import { UserResolver } from '../graphql/resolver/User/User';
+// import { UserResolver } from '../graphql/resolver/User/User';
 
+import UserMutation from '../graphql/User/User.Resolver' 
 export namespace ServerConfiguration {
     
     export class Server {
@@ -29,7 +30,7 @@ export namespace ServerConfiguration {
 
         public async ApolloServer (options: { http: string | undefined; port: number}) {
             
-            const resolvers = [UserResolver];
+            const resolvers = [UserMutation];
             this.port = options.port;
 
             try {

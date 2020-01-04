@@ -1,6 +1,11 @@
-import User from './User'
-import AuthData from './AuthData';
+// import UserType from './User.ObjectType'
+import AuthDataType from './AuthData.ObjectType';
+// import { SingUpData } from './SingUpData.InputType'
+
+// const SingUpDataType = SingUpData
 
 export {
-    AuthData
+    // UserType,
+    AuthDataType,
+    // SingUpDataType
 }

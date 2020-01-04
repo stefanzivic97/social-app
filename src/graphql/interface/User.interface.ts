@@ -1,7 +1,8 @@
 import { InterfaceType, Field, ID } from 'type-graphql';
+import User from '../User/Types/User.ObjectType';
 
 @InterfaceType()
-export abstract class IUser {
+export abstract class IUser implements Partial<User> {
 
     @Field(type => ID)
     public readonly id!: string;
