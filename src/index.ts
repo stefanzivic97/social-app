@@ -1,44 +1,53 @@
-import { ServerConfiguration } from './server/Server';
+import 'reflect-metadata';
+import { buildSchema } from 'type-graphql';
+import { ApolloServer } from 'apollo-server-express';
 
-const server = new ServerConfiguration.Server();
-
-const options = {
-    http: 'http',
-    port: 8090
-}
-
-// server.ApolloServer(options)
+import express, { Application, Request, Response, NextFunction } from 'express';
+import UserResolver from './graphql/User/user.resolver';
 
 
-// import { UserInputData } from './graphql/schema/User/user-inp'
-import * as fs from 'fs';
-import * as path from 'path';
-import { promisify } from 'util'
-const testFolder ='./src/graphql/User/Types';
-
-
-
-
-const run = async (p: any) => {
-    const readFileAsync = promisify(fs.readdir)
-    const res = await readFileAsync(p)
-    const pat = path.extname(p)
-
-    const arr: [] = []; 
-
-    console.log('Path: => ',pat)
-    console.log('\n\n Br: ' + res.length + '\n\n');
-
-    for (let index = 0; index < res.length; index++) {
-        const element = res[index];
-
-        console.log('for loop: ', element)
-    }
-
-}
+const port: number = 9999;
+const bootstrap = async (_port: number) => {
+  try {
+    const p = _port
+    const app: Application = express();
+    
+    const schema = await buildSchema({
+      resolvers: [UserResolver],
+      emitSchemaFile: true
+    })
   
-console.log(run(testFolder))
+    const server = new ApolloServer({ 
+      schema,
+      playground: true,
+      context: (request: Request) => {
+          return request
+      }
+    }).applyMiddleware({ app })
+    
+    app.listen(p, () => {
+      console.log(`http://localhost:${p}/graphql`)
+    });
+
+  } catch (error) {
+    console.log(error)
+  }
+  
+  // ne radi
+  // const schema = await buildSchema({
+  //   resolvers: [UserResolver],
+  //   emitSchemaFile: false
+  // })
+
+  // const server = new ApolloServer({
+  //   schema,
+  //   playground: true
+  // })
+
+  // server.applyMiddleware({ app })
 
 
+}
 
+bootstrap(8080);
 

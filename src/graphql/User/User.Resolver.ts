@@ -1,35 +1,35 @@
-import { Resolver, Mutation, Query, Arg, Ctx } from 'type-graphql';
-// import { UserType } from './Types/index';
-import User from './Types/User.ObjectType';
-import { SingUpData } from './Types/SingUpData.InputType';
-import {IUser} from '../interface/User.interface';
-
-import { plainToClass } from 'class-transformer';
+import { Resolver, Field, Args, Mutation, Arg, Ctx, Query } from 'type-graphql';
+import User from './Types/user.type';
+import AddUserDataInput from './Types/user.input';
 import { Context } from 'vm';
+
 
 @Resolver(of => User)
 export default class {
 
+    @Mutation({ description: `# ? Registration ` })
+    registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): User {
+                
 
-    @Mutation()
-    addUser(@Arg("UserInput", { nullable: false }) UserInput: SingUpData, @Ctx() ctx: Context ): User {
-    // addUser(@Arg('SingUpDataInput') SingUpDataInput: SingUpData): User | any {
         return {
-            id: 'sdadasdsa',
-            username: 'adsdjkhsa',
-            firstName: 'stefan',
-            lastName: 'zoviasid',
+            id: 'asdasd',
+            username: 'Ziks',
+            name: 'stefan',
+            lastName: 'zivic',
             email: 'test@test.com',
-            dateOfBirth: new Date(),
-            password: 'stkjlajsdkasjdl',
-            deactivated: true,
-            driveFolderId: 'adkjhksjhdjaskhj',
-            imageUrl: 'jsadjsakdhkjasd',
-            resetToken: 'asdkhkjhajdsksa',
-            resetTokenExpiration: new Date(),
-            verified: true,
-            verifyId: 'sakjdkksahdashjhdkj'
+            password: 'stefan1997',
+            dateOfBirth: new Date()
         }
-
     }
+
+    @Query(returns => [User], { nullable: true, description: `# ? Get all users ` })
+    getAllUsers(): any {
+        try {
+            let a: Object = {}
+            return a;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
 }
