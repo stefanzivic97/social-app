@@ -5,8 +5,8 @@ import { IUser } from './user.interface';
 export default class User implements IUser {
     public id!: string;    
     public username!: string;
-    public name!: string;
-    public lastName!: string;
+    public name!: string;    
+    public lname!: string;
     public email!: string;
     public dateOfBirth!: Date;
     public password!: string;

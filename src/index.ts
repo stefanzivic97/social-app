@@ -1,10 +1,11 @@
 import 'reflect-metadata';
+import 'dotenv/config'
 import { buildSchema } from 'type-graphql';
 import { ApolloServer } from 'apollo-server-express';
 
 import express, { Application, Request, Response, NextFunction } from 'express';
 import UserResolver from './graphql/User/user.resolver';
-
+import { sequelize } from './models/Database';
 
 const port: number = 9999;
 const bootstrap = async (_port: number) => {
@@ -12,6 +13,8 @@ const bootstrap = async (_port: number) => {
     const p = _port
     const app: Application = express();
     
+    await sequelize.sync({ force: true })
+
     const schema = await buildSchema({
       resolvers: [UserResolver],
       emitSchemaFile: true
@@ -33,20 +36,6 @@ const bootstrap = async (_port: number) => {
     console.log(error)
   }
   
-  // ne radi
-  // const schema = await buildSchema({
-  //   resolvers: [UserResolver],
-  //   emitSchemaFile: false
-  // })
-
-  // const server = new ApolloServer({
-  //   schema,
-  //   playground: true
-  // })
-
-  // server.applyMiddleware({ app })
-
-
 }
 
 bootstrap(8080);

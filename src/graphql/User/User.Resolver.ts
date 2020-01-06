@@ -1,21 +1,33 @@
 import { Resolver, Field, Args, Mutation, Arg, Ctx, Query } from 'type-graphql';
-import User from './Types/user.type';
-import AddUserDataInput from './Types/user.input';
+import { User, AddUserDataInput } from './Types/index';
 import { Context } from 'vm';
+// import { UserModel } from '../../models/User/Users';
 
 
 @Resolver(of => User)
 export default class {
 
     @Mutation({ description: `# ? Registration ` })
-    registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): User {
-                
+    public registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): User {
+           
+        // const user = new UserModel({
+        //     username: 'Ziks',
+        //     name: 'stefan',
+        //     lname: 'zivic',
+        //     email: 'test@test.com',
+        //     password: 'stefan1997',
+        //     dateOfBirth: new Date()
+        // })
+
+        // await user.save()
+
+        // return user
 
         return {
             id: 'asdasd',
             username: 'Ziks',
             name: 'stefan',
-            lastName: 'zivic',
+            lname: 'zivic',
             email: 'test@test.com',
             password: 'stefan1997',
             dateOfBirth: new Date()

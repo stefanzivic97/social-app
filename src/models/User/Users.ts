@@ -53,11 +53,11 @@ export class UserModel extends Model<UserModel> {
         return this.password;
     }
 
-    set setPassword (psw: string) {
-        if (psw && psw.length > 40 || psw && psw.length < 5) {
+    set setPassword (_password: string) {
+        if (_password && _password.length > 40 || _password && _password.length < 5) {
             throw new Error('Password lenght: MIN(5) and Max(40)!');
         }
-        this.password = psw;
+        this.password = _password;
     }
 
     @AllowNull(true)

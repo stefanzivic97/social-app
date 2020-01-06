@@ -22,7 +22,7 @@ interface IUser {
   id: ID!
   username: String!
   name: String!
-  lastName: String!
+  lname: String!
   email: String!
   dateOfBirth: DateTime!
   password: String!
@@ -42,7 +42,7 @@ type User implements IUser {
   id: ID!
   username: String!
   name: String!
-  lastName: String!
+  lname: String!
   email: String!
   dateOfBirth: DateTime!
   password: String!

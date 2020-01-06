@@ -1,5 +1,5 @@
 import { InputType, Field } from "type-graphql";
-import User from './user.type';
+import { User } from './index';
 
 @InputType({ description: "New user data" })
 export default class AddUserDataInput implements Partial<User>{

@@ -1,5 +1,5 @@
 import { InterfaceType, Field, ID } from 'type-graphql';
-import User from './user.type';
+import { User } from './index';
 
 @InterfaceType()
 export abstract class IUser implements Partial<User> {
@@ -14,7 +14,7 @@ export abstract class IUser implements Partial<User> {
     public name!: string;
 
     @Field()
-    public lastName!: string;
+    public lname!: string;
 
     @Field()
     public email!: string;
@@ -23,6 +23,6 @@ export abstract class IUser implements Partial<User> {
     public dateOfBirth!: Date;
 
     @Field()
-    public password!: string
+    public password!: string;
 
 }

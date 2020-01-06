@@ -7,7 +7,7 @@ const postFolderPath = __dirname + modlesPath + 'Post_comments_likes';
 
 
 export const sequelize = new Sequelize({
-    database: 'social_app',
+    database: 'some_db',
     dialect: 'mysql',
     username: 'root',
     password: process.env.DATABASE_PASSWORD,
