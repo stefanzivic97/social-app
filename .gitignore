@@ -1,4 +1,5 @@
 node_modules
 test.js
+test.ts
 test2.js
 # package-lock.json

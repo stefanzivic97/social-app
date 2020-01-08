@@ -40,3 +40,4 @@ const bootstrap = async (_port: number) => {
 
 bootstrap(8080);
 
+console.log(Date.now())

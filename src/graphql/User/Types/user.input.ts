@@ -5,21 +5,23 @@ import { User } from './index';
 export default class AddUserDataInput implements Partial<User>{
 
     @Field({ nullable: false })
-    public username?: string;
+    public username!: string;
 
     @Field({ nullable: false })
-    public name?: string;
+    public firstName!: string;
 
     @Field({ nullable: false })
-    public lname?: string;
+    public lastName!: string;
 
     @Field({ nullable: false })
-    public email?: string;
-
-    @Field({ nullable: false })
-    public password?: string;
+    public email!: string;
 
     @Field({ nullable: true })
-    public dateOfBirth?: Date;
-}
+    public dateOfBirth!: Date;
 
+    @Field({ nullable: false })
+    public password!: string;
+
+    @Field({ nullable: true })
+    public imageUrl!: string;
+}

@@ -7,22 +7,43 @@ export abstract class IUser implements Partial<User> {
     @Field(type => ID)
     public readonly id!: string;
 
-    @Field()
+    @Field({ nullable: false })
     public username!: string;
 
-    @Field()
-    public name!: string;
+    @Field({ nullable: false })
+    public firstName!: string;
 
-    @Field()
-    public lname!: string;
+    @Field({ nullable: false })
+    public lastName!: string;
 
-    @Field()
+    @Field({ nullable: false })
     public email!: string;
 
-    @Field()
+    @Field({ nullable: true })
     public dateOfBirth!: Date;
-
+    
     @Field()
     public password!: string;
+    
+    @Field()
+    public imageUrl!: string;
+
+    @Field()
+    public verified!: Boolean;
+
+    @Field()
+    public driveFolderId!: string;
+
+    @Field()
+    public resetToken!: string;
+
+    @Field()
+    public resetTokenExpiration!: Date;
+
+    @Field()
+    public verifyId!: string;
+
+    @Field()
+    public deactivated!: Boolean;
 
 }

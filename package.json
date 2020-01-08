@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/stefanzivic97/social-app#readme",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.29",
     "@types/graphql": "^14.5.0",
     "@types/validator": "^12.0.1",
     "apollo-server-express": "^2.9.15",
+    "bcryptjs": "^2.4.3",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "dotenv": "^8.2.0",

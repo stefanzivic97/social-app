@@ -6,11 +6,12 @@
 """New user data"""
 input AddUserDataInput {
   username: String!
-  name: String!
-  lname: String!
+  firstName: String!
+  lastName: String!
   email: String!
-  password: String!
   dateOfBirth: DateTime
+  password: String!
+  imageUrl: String
 }
 
 """
@@ -21,11 +22,18 @@ scalar DateTime
 interface IUser {
   id: ID!
   username: String!
-  name: String!
-  lname: String!
+  firstName: String!
+  lastName: String!
   email: String!
-  dateOfBirth: DateTime!
+  dateOfBirth: DateTime
   password: String!
+  imageUrl: String!
+  verified: Boolean!
+  driveFolderId: String!
+  resetToken: String!
+  resetTokenExpiration: DateTime!
+  verifyId: String!
+  deactivated: Boolean!
 }
 
 type Mutation {
@@ -41,9 +49,16 @@ type Query {
 type User implements IUser {
   id: ID!
   username: String!
-  name: String!
-  lname: String!
+  firstName: String!
+  lastName: String!
   email: String!
-  dateOfBirth: DateTime!
+  dateOfBirth: DateTime
   password: String!
+  imageUrl: String!
+  verified: Boolean!
+  driveFolderId: String!
+  resetToken: String!
+  resetTokenExpiration: DateTime!
+  verifyId: String!
+  deactivated: Boolean!
 }
