@@ -6,11 +6,11 @@ import {
     HasMany
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
-import { UserModel } from '../User/Users'
-import { LikeModel } from './Likes';
+import { UserModel } from '../User/index'
+import { LikeModel } from './index';
 
 @Table
-export class PostModel extends Model<PostModel> {
+export default class Post extends Model<Post> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })

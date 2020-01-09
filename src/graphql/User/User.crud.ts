@@ -1,4 +1,4 @@
-import { UserModel } from "../../models/User/Users";
+import { UserModel } from "../../models/User/index";
 import { hashSync } from 'bcryptjs';
 
 export class User {
@@ -21,8 +21,9 @@ export class User {
         user.email = email
         user.dateOfBirth = dateOfBirth;
         user.setPassword = hashSync(password, 12);  // ! Add to process.env.{ salt for hash }
-        user.imageUrl = imageUrl;
-        await user.save();
+        // user.imageUrl = imageUrl || '';
+        user.verified = true;
+        return await user.save();
     }
 
     public async findUserById(id: string) {
@@ -38,7 +39,7 @@ export class User {
         password: string,
         imageUrl: string
     }) {
-        const { username, firstName, lastName, email, dateOfBirth, password, imageUrl } = input;
+        const { username, firstName, lastName, email, dateOfBirth, imageUrl } = input;
 
         await UserModel.update({
             username,
@@ -47,7 +48,11 @@ export class User {
             email,
             dateOfBirth,
             imageUrl
-        }, { where: { id } })
+        }, { 
+            where: { 
+                id 
+            } 
+        })
     }
 
 }

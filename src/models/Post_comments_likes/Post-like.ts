@@ -5,10 +5,10 @@ import {
     ForeignKey, BelongsTo
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
-import { LikeModel } from './Likes';
+import { LikeModel } from './index';
 
 @Table
-export class PostLikeModel extends Model<PostLikeModel> {
+export default class PostLike extends Model<PostLike> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })

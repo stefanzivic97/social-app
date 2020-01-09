@@ -1,8 +1,8 @@
 import { InterfaceType, Field, ID } from 'type-graphql';
-import { User } from './index';
+import { UserType } from './index';
 
 @InterfaceType()
-export abstract class IUser implements Partial<User> {
+export abstract class IUser implements Partial<UserType> {
     
     @Field(type => ID)
     public readonly id!: string;
@@ -25,7 +25,7 @@ export abstract class IUser implements Partial<User> {
     @Field()
     public password!: string;
     
-    @Field()
+    @Field({ nullable: true })
     public imageUrl!: string;
 
     @Field()

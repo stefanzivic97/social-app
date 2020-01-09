@@ -4,10 +4,11 @@ import {
     BeforeCreate, BeforeUpdate,
     ForeignKey, BelongsTo
 } from 'sequelize-typescript';
-import { Min, Max } from 'class-validator';
-import { UserModel } from './Users'
+import { Max } from 'class-validator';
+import { UserModel } from './index';
 
-export class UserDetailsModel extends Model<UserDetailsModel> {
+@Table
+export default class UserDetails extends Model<UserDetails> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })

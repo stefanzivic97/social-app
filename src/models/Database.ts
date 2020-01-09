@@ -1,9 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
-import { UserModel } from './User/Users';
-
-const modlesPath = './src/Models/';
-const userFolderPath = __dirname + modlesPath + 'User';
-const postFolderPath = __dirname + modlesPath + 'Post_comments_likes';
+import { UserModel, UserDetailsModel } from './User/index';
+import { 
+    LikeModel, 
+    PostModel, PostLikeModel,
+    CommentModel, CommentLikeModel
+} from './Post_comments_likes/index';
 
 
 export const sequelize = new Sequelize({
@@ -12,5 +13,10 @@ export const sequelize = new Sequelize({
     username: 'root',
     password: process.env.DATABASE_PASSWORD,
     storage: ':memory:',
-    models: [userFolderPath, postFolderPath]
+    models: [
+        UserModel, UserDetailsModel,
+        PostModel, PostLikeModel,
+        CommentModel, CommentLikeModel,
+        LikeModel
+    ]
 })

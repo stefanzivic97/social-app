@@ -5,16 +5,14 @@ import {
     ForeignKey, BelongsTo, HasMany
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
-import { PostModel } from './Posts'
-import { PostLikeModel } from './Post-likes';
-import { CommentLikeModel } from './Commet-likes';
+import { PostModel, PostLikeModel, CommentLikeModel, CommentModel } from './index'
 
 @Table
-export class LikeModel extends Model<LikeModel> {
+export default class Like extends Model<Like> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
-    public readonly id!: String;
+    public readonly id!: string;
 
     /**
      * * Association
@@ -31,10 +29,12 @@ export class LikeModel extends Model<LikeModel> {
     // * Post 1:n Likes
     @ForeignKey(() => PostModel)
     @Column({ type: DataType.STRING })
-    public postId!: String;
+    public postId!: string;
 
     @BelongsTo(() => PostModel)
     public post!: PostModel;
     
-    
+    @ForeignKey(() => CommentModel)
+    @Column({ type: DataType.STRING })
+    public commentId!: string;
 }

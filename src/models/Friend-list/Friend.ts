@@ -5,7 +5,7 @@ import {
     ForeignKey, BelongsTo,
     HasMany
 } from 'sequelize-typescript';
-import { UserModel } from '../User/Users';
+import { UserModel } from '../User/index';
 
 @Table
 export class FriendModel extends Model<FriendModel> {

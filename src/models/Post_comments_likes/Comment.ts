@@ -5,11 +5,11 @@ import {
     ForeignKey, BelongsTo, HasMany
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
-import { PostModel } from './Posts'
-import { LikeModel } from './Likes';
+import { PostModel } from './index';
+import { LikeModel } from './index';
 
 @Table
-export class Comment extends Model<Comment> {
+export default class Comment extends Model<Comment> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })

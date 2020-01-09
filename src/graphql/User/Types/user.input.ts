@@ -1,8 +1,8 @@
 import { InputType, Field } from "type-graphql";
-import { User } from './index';
+import { UserType } from './index';
 
 @InputType({ description: "New user data" })
-export default class AddUserDataInput implements Partial<User>{
+export default class AddUserDataInput implements Partial<UserType>{
 
     @Field({ nullable: false })
     public username!: string;
@@ -21,6 +21,9 @@ export default class AddUserDataInput implements Partial<User>{
 
     @Field({ nullable: false })
     public password!: string;
+
+    @Field({ nullable: false })
+    public confirmPassword!: string;
 
     @Field({ nullable: true })
     public imageUrl!: string;

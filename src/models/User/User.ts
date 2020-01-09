@@ -5,11 +5,11 @@ import {
     HasMany, HasOne
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
-import { PostModel } from '../Post_comments_likes/Posts';
-import { UserDetailsModel } from './User-details';
+import { PostModel } from '../Post_comments_likes/index';
+import { UserDetailsModel } from './index';
 
 @Table
-export class UserModel extends Model<UserModel> {
+export default class User extends Model<User> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
@@ -107,7 +107,7 @@ export class UserModel extends Model<UserModel> {
      */
     @BeforeCreate
     @BeforeUpdate
-    public static firstCaraterUpperCase (instance: UserModel): void {
+    public static firstCaraterUpperCase (instance: User): void {
         /** First and Last name */
         let firstCarater: string = instance.firstName.slice(0, 1);
         let restOfString: string = instance.firstName.toUpperCase();
