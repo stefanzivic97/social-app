@@ -22,11 +22,11 @@ export default class PostLike extends Model<PostLike> {
      * * Association
      */
 
-    // * Post 1:n Likes
-    @ForeignKey(() => LikeModel)
-    @Column({ type: DataType.STRING })
-    public likeId!: String;
+    // // * Post 1:n Likes
+    // @ForeignKey(() => LikeModel)
+    // @Column({ type: DataType.STRING })
+    // public likeId!: String;
 
-    @BelongsTo(() => LikeModel)
-    public likePost!: LikeModel;
+    // @BelongsTo(() => LikeModel)
+    // public likePost!: LikeModel;
 }

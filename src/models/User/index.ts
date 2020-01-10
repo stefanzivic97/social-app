@@ -1,7 +1,7 @@
 import UserModel from './User';
-import UserDetailsModel from './User-detail';
+import InformationModel from './Information';
 
 export {
     UserModel,
-    UserDetailsModel
+    InformationModel
 }

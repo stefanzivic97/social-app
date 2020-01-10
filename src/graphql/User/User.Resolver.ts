@@ -5,6 +5,8 @@ import { Context } from 'vm';
 import validator from 'validator';
 import uuidv4 from 'uuid/v4'
 import { UserModel } from '../../models/User/index';
+import { hashSync } from 'bcryptjs';
+// import UserDetails from '../../models/User/Information';
 
 /**
  *          @param of => UserType
@@ -13,16 +15,14 @@ import { UserModel } from '../../models/User/index';
  * !        * Hard to find problem
  */
 
-const uuid = uuidv4()
 
 @Resolver() 
-export class UserResolver extends User {
+export class UserResolver extends UserModel {
     
     @Mutation({ description: `# ? Registration ` })
     public registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): UserType {
         
-        // const validator: Validator = new Validator();
-        const log = console.log;
+        const uuid = uuidv4()
         const errors: { message: string }[] = [];
         const { username, firstName, lastName, email, password, confirmPassword, imageUrl } = UserInput;
 
@@ -55,49 +55,48 @@ export class UserResolver extends User {
             error.data = errors;
             error.code = 422;
             throw error
-            console.log(error);
         }
         
-        // const user = new UserModel(UserInput)
-        
-        // console.log('USER::  ',user)
-
-        return {
-            id: uuid,
+        const user = new UserModel({
             username,
             firstName,
             lastName,
             email,
             dateOfBirth: new Date(),
-            deactivated: false,
+            deactivated: true,
             driveFolderId: 'asdkjalsjdlas',
             imageUrl,
-            password,
+            password: hashSync(password, 12), 
             resetToken: 'aksdjlaksdjklas',
             resetTokenExpiration: new Date() ,
             verified: true,
             verifyId: 'akjshdkjhask'
-        }
+        })
+        
+        const createduser = user.save()
+        
+        // console.log(user.userDetailsId)
 
         
 
-        // return {
-        //     id: 'kasdjlaksd',
-        //     firstName: 'adjklkasjd',
-        //     lastName: 'adjskjkldsa',
-        //     username: 'adskjsalkdjlksa',
-        //     email: 'kaskjdksajdklja',
-        //     dateOfBirth: new Date(),
-        //     deactivated: false,
-        //     driveFolderId: 'asdkjalsjdlas',
-        //     imageUrl: 'aslkdjlsajdkl',
-        //     password: 'asdl;skadlsladk',
-        //     resetToken: 'aksdjlaksdjklas',
-        //     resetTokenExpiration: new Date() ,
-        //     verified: true,
-        //     verifyId: 'akjshdkjhask'
-        // }
 
+        return {
+            id: user.id,
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            dateOfBirth: user.dateOfBirth,
+            deactivated: user.deactivated,
+            driveFolderId: user.driveFolderId,
+            imageUrl: user.imageUrl,
+            password: user.getPassword,
+            resetToken: user.resetToken,
+            resetTokenExpiration: user.resetTokenExpiration,
+            verified: user.verified,
+            verifyId: user.verifyId
+        }
+        
     }
 
     @Query(returns => [UserType], { nullable: true, description: `# ? Get all users ` })

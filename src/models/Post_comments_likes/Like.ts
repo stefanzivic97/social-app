@@ -18,23 +18,23 @@ export default class Like extends Model<Like> {
      * * Association
      */
 
-    // * Like 1:n PostLikes
-    @HasMany(() => PostLikeModel)
-    public postLikes!: PostLikeModel[];
+    // // * Like 1:n PostLikes
+    // @HasMany(() => PostLikeModel)
+    // public postLikes!: PostLikeModel[];
     
-    // * Like 1:n CommentLikes
-    @HasMany(() => CommentLikeModel)
-    public commentLikes!: CommentLikeModel[];
+    // // * Like 1:n CommentLikes
+    // @HasMany(() => CommentLikeModel)
+    // public commentLikes!: CommentLikeModel[];
 
-    // * Post 1:n Likes
-    @ForeignKey(() => PostModel)
-    @Column({ type: DataType.STRING })
-    public postId!: string;
+    // // * Post 1:n Likes
+    // @ForeignKey(() => PostModel)
+    // @Column({ type: DataType.STRING })
+    // public postId!: string;
 
-    @BelongsTo(() => PostModel)
-    public post!: PostModel;
+    // @BelongsTo(() => PostModel)
+    // public post!: PostModel;
     
-    @ForeignKey(() => CommentModel)
-    @Column({ type: DataType.STRING })
-    public commentId!: string;
+    // @ForeignKey(() => CommentModel)
+    // @Column({ type: DataType.STRING })
+    // public commentId!: string;
 }

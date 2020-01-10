@@ -21,9 +21,10 @@ export class User {
         user.email = email
         user.dateOfBirth = dateOfBirth;
         user.setPassword = hashSync(password, 12);  // ! Add to process.env.{ salt for hash }
-        // user.imageUrl = imageUrl || '';
-        user.verified = true;
-        return await user.save();
+        user.imageUrl = imageUrl;
+        user.verified = false;
+        user.deactivated = false;
+        await user.save();
     }
 
     public async findUserById(id: string) {

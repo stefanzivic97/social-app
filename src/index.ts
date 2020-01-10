@@ -11,7 +11,7 @@ import { sequelize } from './models/Database';
 const port: any = process.env.PORT;
 const bootstrap = async (port: number) => {
   try {
-    // const p = _port
+
     const app: Application = express();
     
     // await sequelize.sync({ force: true })

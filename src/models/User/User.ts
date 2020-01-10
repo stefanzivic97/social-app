@@ -2,15 +2,18 @@ import {
     Model, Table, Column, AllowNull,
     PrimaryKey, DataType,
     BeforeCreate, BeforeUpdate, 
-    HasMany, HasOne
+    HasMany, HasOne, ForeignKey, BelongsTo
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
 import { PostModel } from '../Post_comments_likes/index';
-import { UserDetailsModel } from './index';
+import { InformationModel, UserModel } from './index';
+import { hashSync } from 'bcryptjs';
+import Infomation from './Information';
+
 
 @Table
 export default class User extends Model<User> {
-
+ 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
     public readonly id!: string;
@@ -44,19 +47,15 @@ export default class User extends Model<User> {
     public dateOfBirth!: Date;
 
     @AllowNull(false)
-    @Min(5)
-    @Max(40)
+    @Max(255)
     @Column({ type: DataType.STRING })
     private password!: string;
 
-    get getPassword (): string | undefined {
+    get getPassword () {
         return this.password;
     }
 
     set setPassword (_password: string) {
-        if (_password && _password.length > 40 || _password && _password.length < 5) {
-            throw new Error('Password lenght: MIN(5) and Max(40)!');
-        }
         this.password = _password;
     }
 
@@ -88,28 +87,31 @@ export default class User extends Model<User> {
 
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     public deactivated!: Boolean;
-
+    
+    
+    
+    
     /**
      * * Association 
-     */
+    */
 
-    // * User 1:n Post
+    @HasOne(() => InformationModel)
+    public infomation!: InformationModel;
+
     @HasMany(() => PostModel)
-    public posts!: PostModel[];
-
-    // * User 1:n UserDetails
-    @HasOne(() => UserDetailsModel)
-    public userDetals!: UserDetailsModel;
-
+    public posts!: [PostModel];
+    
     /**
      * Format string before insert in database
      * @param instance of UserModel
      */
     @BeforeCreate
-    @BeforeUpdate
+    // @BeforeUpdate
     public static firstCaraterUpperCase (instance: User): void {
         /** First and Last name */
-        let firstCarater: string = instance.firstName.slice(0, 1);
+        const psw = instance.getPassword
+        instance.setPassword = hashSync(psw, 12)
+        let firstCarater: string = instance.firstName.slice(5);
         let restOfString: string = instance.firstName.toUpperCase();
         instance.firstName = firstCarater + restOfString;
     }

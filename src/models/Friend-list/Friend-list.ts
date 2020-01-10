@@ -19,8 +19,8 @@ export class FriendListModel extends Model<FriendListModel> {
      * * Association
      */
 
-    // * FriendList 1:n Friend
-    @HasMany(() => FriendModel)
-    public friends!: FriendModel[];
+    // // * FriendList 1:n Friend
+    // @HasMany(() => FriendModel)
+    // public friends!: FriendModel[];
 
 }

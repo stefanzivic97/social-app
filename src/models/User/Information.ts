@@ -2,22 +2,23 @@ import {
     Model, Table, Column, AllowNull,
     PrimaryKey, DataType,
     BeforeCreate, BeforeUpdate,
-    ForeignKey, BelongsTo
+    ForeignKey, BelongsTo, HasOne
 } from 'sequelize-typescript';
 import { Max } from 'class-validator';
-import { UserModel } from './index';
+import { UserModel, InformationModel } from './index';
+
 
 @Table
-export default class UserDetails extends Model<UserDetails> {
+export default class Infomation extends Model<Infomation> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
-    readonly id!: String; 
+    readonly id!: string; 
 
     @AllowNull(true)
     @Max(50)
     @Column({ type: DataType.STRING })
-    public currentLocation!: String;
+    public currentLocation!: string;
     
     @AllowNull(true)
     @Max(50)
@@ -27,27 +28,25 @@ export default class UserDetails extends Model<UserDetails> {
     @AllowNull(true)
     @Max(50)
     @Column({ type: DataType.STRING })
-    public school!: String;
+    public school!: string;
 
     @AllowNull(true)
     @Max(50)
     @Column({ type: DataType.STRING })
-    public work!: String; 
+    public work!: string; 
 
     @AllowNull(true)
     @Max(30)
     @Column({ type: DataType.STRING })
-    public hobby!: String; 
+    public hobby!: string; 
 
     /**
-     * * Association
-     */
-
-    // * User 1:n UserDetails
-    @ForeignKey(() => UserModel)
-    @Column({ type: DataType.STRING })
-    public userId!: String;
+     * * Association 
+    */
     
+    @ForeignKey(() => UserModel) 
+    public user_id!: string;        
+
     @BelongsTo(() => UserModel)
     public user!: UserModel;
 

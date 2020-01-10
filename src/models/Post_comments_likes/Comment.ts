@@ -31,16 +31,16 @@ export default class Comment extends Model<Comment> {
      * * Association 
      */
 
-    // * Post 1:n  Comments
-    @ForeignKey(() => PostModel)
-    @Column({ type: DataType.STRING })
-    public postId!: String;
+    // // * Post 1:n  Comments
+    // @ForeignKey(() => PostModel)
+    // @Column({ type: DataType.STRING })
+    // public postId!: String;
 
-    @BelongsTo(() => PostModel)
-    public post!: PostModel; 
+    // @BelongsTo(() => PostModel)
+    // public post!: PostModel; 
 
-    // * Comment 1:n Likes
-    @HasMany(() => LikeModel)
-    public likes!: LikeModel[];
+    // // * Comment 1:n Likes
+    // @HasMany(() => LikeModel)
+    // public likes!: LikeModel[];
 
 }

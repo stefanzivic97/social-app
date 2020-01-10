@@ -22,12 +22,12 @@ export default class CommentLike extends Model<CommentLike> {
      * * Association
      */
 
-    // * Like 1:n CommentLikes
-    @ForeignKey(() => LikeModel)
-    @Column({ type: DataType.STRING })
-    public likeId!: LikeModel;
+    // // * Like 1:n CommentLikes
+    // @ForeignKey(() => LikeModel)
+    // @Column({ type: DataType.STRING })
+    // public likeId!: LikeModel;
 
-    @BelongsTo(() => LikeModel)
-    public commentLike!: LikeModel;
+    // @BelongsTo(() => LikeModel)
+    // public commentLike!: LikeModel;
 
 }

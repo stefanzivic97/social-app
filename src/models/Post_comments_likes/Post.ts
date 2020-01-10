@@ -41,15 +41,10 @@ export default class Post extends Model<Post> {
      * * Association
      */
 
-    // * User 1:n Post 
     @ForeignKey(() => UserModel)
-    @Column({ type: DataType.STRING })
-    public userId!: String;
+    public user_id!: UserModel;
 
     @BelongsTo(() => UserModel)
-    public post!: UserModel;
+    public user!: UserModel;
 
-    // * Post 1:n Likes
-    @HasMany(() => LikeModel)
-    public likes!: LikeModel[];
 }

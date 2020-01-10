@@ -18,13 +18,13 @@ export class FriendModel extends Model<FriendModel> {
      * * Association
      */
 
-    // * User 1:n Friends
-    @ForeignKey(() => UserModel)
-    @Column({ type: DataType.STRING })
-    public userId!: UserModel;
+    // // * User 1:n Friends
+    // @ForeignKey(() => UserModel)
+    // @Column({ type: DataType.STRING })
+    // public userId!: UserModel;
 
-    @BelongsTo(() => UserModel)
-    public friend!: UserModel;
+    // @BelongsTo(() => UserModel)
+    // public friend!: UserModel;
     
 
 }
