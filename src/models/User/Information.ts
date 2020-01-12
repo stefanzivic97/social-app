@@ -13,7 +13,7 @@ export default class Infomation extends Model<Infomation> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
-    readonly id!: string; 
+    public readonly id!: string; 
 
     @AllowNull(true)
     @Max(50)
@@ -44,7 +44,7 @@ export default class Infomation extends Model<Infomation> {
      * * Association 
     */
     
-    @ForeignKey(() => UserModel) 
+    @ForeignKey(() => UserModel)
     public user_id!: string;        
 
     @BelongsTo(() => UserModel)

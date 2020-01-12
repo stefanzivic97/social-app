@@ -14,7 +14,7 @@ const bootstrap = async (port: number) => {
 
     const app: Application = express();
     
-    // await sequelize.sync({ force: true })
+    await sequelize.sync({ force: true })
 
     const schema = await buildSchema({
       resolvers: [UserResolver],
@@ -24,7 +24,7 @@ const bootstrap = async (port: number) => {
     const server = new ApolloServer({ 
       schema,
       playground: true,
-      context: (request: Request) => {
+      context: (request: Request, response: Response) => {
         return request
       },
       formatError: (error: any): any => {
@@ -57,4 +57,21 @@ const bootstrap = async (port: number) => {
 
 bootstrap(port);
 
-console.log(Date.now())
+
+const headers: object = {} 
+
+// for (const i in headers) {
+//   if (headers[i].hasOwnProperty('key')
+//     && headers[i].hasOwnProperty('value')) {
+//     this._headers.push([headers[i].key, headers[i].value]);
+//   }
+// }
+
+// let map : { [key: string]: boolean} = {};
+// map["foo"] = true;
+// map["bar"] = false;
+// map.foo = true;
+// // map["foobar"] = "foo"; // Throws exception
+// map[1] = true; // Curiously doesn't throws exception
+
+// console.log(map)

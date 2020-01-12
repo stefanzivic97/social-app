@@ -5,10 +5,10 @@ import {
     ForeignKey, BelongsTo,
     HasMany
 } from 'sequelize-typescript';
-import { FriendRequestsModel } from './Friend-requests'
+import { FriendRequestsModel } from './index';
 
 @Table
-export class RequestModel extends Model<RequestModel> {
+export default class Request extends Model<Request> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
@@ -31,9 +31,8 @@ export class RequestModel extends Model<RequestModel> {
 
     // * FriendRequest 1:n Requests
     @ForeignKey(() => FriendRequestsModel)
-    @Column({ type: DataType.STRING })
     public friendRequestId!: String;
 
     @BelongsTo(() => FriendRequestsModel)
-    public request!: FriendRequestsModel;
+    public friendRequest!: FriendRequestsModel;
 }

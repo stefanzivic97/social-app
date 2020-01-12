@@ -6,6 +6,7 @@ import {
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
 import { PostModel, PostLikeModel, CommentLikeModel, CommentModel } from './index'
+import CommentLike from './Commet-like';
 
 @Table
 export default class Like extends Model<Like> {
@@ -17,6 +18,19 @@ export default class Like extends Model<Like> {
     /**
      * * Association
      */
+
+    @ForeignKey(() => PostModel)
+    public post_id!: string;
+
+    @BelongsTo(() => PostModel)
+    public post!: PostModel;
+
+    @HasMany(() => PostLikeModel)
+    public postLikes!: [PostLikeModel];
+
+    @HasMany(() => CommentLikeModel)
+    public commentLikes!: [CommentLikeModel];
+
 
     // // * Like 1:n PostLikes
     // @HasMany(() => PostLikeModel)

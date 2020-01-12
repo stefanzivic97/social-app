@@ -5,11 +5,11 @@ import {
     ForeignKey, BelongsTo,
     HasMany
 } from 'sequelize-typescript';
-import { FriendModel } from './Friend';
+import { FriendModel } from './index';
 
 
 @Table
-export class FriendListModel extends Model<FriendListModel> {
+export default class FriendList extends Model<FriendList> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
@@ -18,6 +18,9 @@ export class FriendListModel extends Model<FriendListModel> {
     /**
      * * Association
      */
+
+    @HasMany(() => FriendModel)
+    public friends!: [FriendModel];
 
     // // * FriendList 1:n Friend
     // @HasMany(() => FriendModel)

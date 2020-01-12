@@ -6,24 +6,35 @@ import validator from 'validator';
 import uuidv4 from 'uuid/v4'
 import { UserModel } from '../../models/User/index';
 import { hashSync } from 'bcryptjs';
+import obj from '../../test';
 // import UserDetails from '../../models/User/Information';
 
+import { create_model } from '../../models/db_options';
+
 /**
- *          @param of => UserType
+ * @param of => UserType
  * ?        * Only if export default class { ...resolvers }
- * Todo     * @Resolver(of => UserType)
- * !        * Hard to find problem
+ *   Todo   * @Resolver(of => UserType)
+ * ! Error  * Hard to find problem
  */
 
 
 @Resolver() 
 export class UserResolver extends UserModel {
     
+    private userCollection: UserType[] = [];
+
+    /**
+     * * Registration
+     * @param UserInput  
+     * @param ctx 
+     */
     @Mutation({ description: `# ? Registration ` })
     public registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): UserType {
         
         const uuid = uuidv4()
         const errors: { message: string }[] = [];
+
         const { username, firstName, lastName, email, password, confirmPassword, imageUrl } = UserInput;
 
         if (validator.isEmpty(username)) {
@@ -57,45 +68,98 @@ export class UserResolver extends UserModel {
             throw error
         }
         
-        const user = new UserModel({
-            username,
-            firstName,
-            lastName,
-            email,
-            dateOfBirth: new Date(),
-            deactivated: true,
-            driveFolderId: 'asdkjalsjdlas',
-            imageUrl,
-            password: hashSync(password, 12), 
-            resetToken: 'aksdjlaksdjklas',
-            resetTokenExpiration: new Date() ,
-            verified: true,
-            verifyId: 'akjshdkjhask'
-        })
+        // const user = new UserModel({
+        //     username,
+        //     firstName,
+        //     lastName,
+        //     email,
+        //     dateOfBirth: new Date(),
+        //     deactivated: true,
+        //     driveFolderId: 'asdkjalsjdlas',
+        //     imageUrl,
+        //     password: hashSync(password, 12), 
+        //     resetToken: 'aksdjlaksdjklas',
+        //     resetTokenExpiration: new Date() ,
+        //     verified: true,
+        //     verifyId: 'akjshdkjhask'
+        // })
         
-        const createduser = user.save()
+        // const createduser = user.save()
         
         // console.log(user.userDetailsId)
 
         
+        // console.log(UserInput)
+
+        // let meals = {
+        //     mealA: 'Breakfast',
+        //     mealB: 'Lunch',
+        //     mealC: 'Dinner'
+        //   };
+          
+        // const modelKey: { [key: string]: any } = {}
+
+        // const inp: any = UserInput;
+
+        // Object.keys(inp).map(function(key:any){
+        //     modelKey[key] = inp[key]
+        // });
+
+        // const user = new UserModel(modelKey)
+        // user.save()
+
+        // console.log(modelKey)
+        // console.log(inp)
 
 
-        return {
-            id: user.id,
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            dateOfBirth: user.dateOfBirth,
-            deactivated: user.deactivated,
-            driveFolderId: user.driveFolderId,
-            imageUrl: user.imageUrl,
-            password: user.getPassword,
-            resetToken: user.resetToken,
-            resetTokenExpiration: user.resetTokenExpiration,
-            verified: user.verified,
-            verifyId: user.verifyId
-        }
+
+
+        // console.log(Object.keys(inp), Object.values(inp))
+
+
+        // console.log('Object=', inp)
+        // console.log('Array=',arr)
+
+
+        //   for (const key in UserInput) {
+        //     if (UserInput[i].hasOwnProperty('key') && UserInput[i].hasOwnProperty()) {
+        //         const element = UserInput[key];
+                
+        //     }
+        // }
+
+
+
+        //   for (let [key, value] of Object.entries(UserInput)) {
+        //     console.log(key + ':' + value);
+            
+        //   }
+
+
+        const user = create_model(UserModel, UserInput)
+        
+        // this.userCollection.push(user)
+
+        console.log( 'dasdasdsad',user)
+
+        return user
+
+        // return {
+        //     id: user.id,
+        //     username: user.username,
+        //     firstName: user.firstName,
+        //     lastName: user.lastName,
+        //     email: user.email,
+        //     dateOfBirth: user.dateOfBirth,
+        //     deactivated: user.deactivated,
+        //     driveFolderId: user.driveFolderId,
+        //     imageUrl: user.imageUrl,
+        //     password: user.getPassword,
+        //     resetToken: user.resetToken,
+        //     resetTokenExpiration: user.resetTokenExpiration,
+        //     verified: user.verified,
+        //     verifyId: user.verifyId
+        // }
         
     }
 

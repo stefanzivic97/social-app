@@ -6,9 +6,10 @@ import {
     HasMany
 } from 'sequelize-typescript';
 import { UserModel } from '../User/index';
+import { FriendListModel } from './index';
 
 @Table
-export class FriendModel extends Model<FriendModel> {
+export default class Friend extends Model<Friend> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
@@ -17,6 +18,12 @@ export class FriendModel extends Model<FriendModel> {
     /**
      * * Association
      */
+
+    @ForeignKey(() => FriendListModel)
+    public friend_list_id!: string;
+
+    @BelongsTo(() => FriendListModel)
+    public friendList!: FriendListModel;
 
     // // * User 1:n Friends
     // @ForeignKey(() => UserModel)

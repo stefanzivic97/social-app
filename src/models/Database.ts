@@ -5,36 +5,7 @@ import {
     PostModel, PostLikeModel,
     CommentModel, CommentLikeModel
 } from './Post_comments_likes/index';
-
-
-
-// @Table
-// export class Player extends Model<Player> {
- 
-//   @Column
-//   name!: string;
- 
-//   @Column
-//   num!: number;
- 
-//   @ForeignKey(() => Team)
-//   @Column
-//   teamId!: number;
- 
-//   @BelongsTo(() => Team)
-//   team!: Team;
-// }
- 
-// @Table
-// export class Team extends Model<Team> {
- 
-//   @Column
-//   name!: string;
- 
-//   @HasMany(() => Player)
-//   players!: Player[];
-// }
-
+import { FriendRequestsModel, RequestModel } from './Friend-request/index';
 
 export const sequelize = new Sequelize({
     database: 'social',
@@ -43,10 +14,10 @@ export const sequelize = new Sequelize({
     password: process.env.DATABASE_PASSWORD,
     storage: ':memory:',
     models: [
-        // Team, Player
         UserModel, InformationModel,
-        // LikeModel,
-        PostModel, //PostLikeModel,
-        // CommentModel, CommentLikeModel
+        LikeModel,
+        PostModel, PostLikeModel,
+        CommentModel, CommentLikeModel,
+        FriendRequestsModel, RequestModel
     ]
 })

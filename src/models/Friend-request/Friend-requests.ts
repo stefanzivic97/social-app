@@ -5,16 +5,16 @@ import {
     ForeignKey, BelongsTo,
     HasMany
 } from 'sequelize-typescript';
-import { RequestModel } from './request';
+import { RequestModel } from './index';
 
 @Table
-export class FriendRequestsModel extends Model<FriendRequestsModel> {
+export default class FriendRequests extends Model<FriendRequests> {
 
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
     public readonly id!: String;
 
-    /**
+    /** 
      * * Association
      */
 

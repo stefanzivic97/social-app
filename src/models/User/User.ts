@@ -13,6 +13,7 @@ import Infomation from './Information';
 
 @Table
 export default class User extends Model<User> {
+    // [x: string]: any;
  
     @PrimaryKey
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
@@ -49,7 +50,7 @@ export default class User extends Model<User> {
     @AllowNull(false)
     @Max(255)
     @Column({ type: DataType.STRING })
-    private password!: string;
+    protected password!: string;
 
     get getPassword () {
         return this.password;
@@ -88,9 +89,6 @@ export default class User extends Model<User> {
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     public deactivated!: Boolean;
     
-    
-    
-    
     /**
      * * Association 
     */
@@ -106,7 +104,7 @@ export default class User extends Model<User> {
      * @param instance of UserModel
      */
     @BeforeCreate
-    // @BeforeUpdate
+    @BeforeUpdate
     public static firstCaraterUpperCase (instance: User): void {
         /** First and Last name */
         const psw = instance.getPassword

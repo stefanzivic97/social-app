@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 import { Min, Max } from 'class-validator';
 import { UserModel } from '../User/index'
-import { LikeModel } from './index';
+import { LikeModel, CommentLikeModel, CommentModel } from './index';
 
 @Table
 export default class Post extends Model<Post> {
@@ -41,10 +41,17 @@ export default class Post extends Model<Post> {
      * * Association
      */
 
+    /* User 1:n Post */
     @ForeignKey(() => UserModel)
     public user_id!: UserModel;
 
     @BelongsTo(() => UserModel)
     public user!: UserModel;
 
+    /*  */
+    @HasMany(() => CommentModel)
+    public comment!: CommentModel;
+
+    @HasMany(() => LikeModel)
+    public likes!: [LikeModel];
 }
