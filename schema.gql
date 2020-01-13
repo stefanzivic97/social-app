@@ -29,12 +29,6 @@ interface IUser {
   dateOfBirth: DateTime
   password: String!
   imageUrl: String
-  verified: Boolean!
-  driveFolderId: String!
-  resetToken: String!
-  resetTokenExpiration: DateTime!
-  verifyId: String!
-  deactivated: Boolean!
 }
 
 type Mutation {
@@ -56,10 +50,4 @@ type User implements IUser {
   dateOfBirth: DateTime
   password: String!
   imageUrl: String
-  verified: Boolean!
-  driveFolderId: String!
-  resetToken: String!
-  resetTokenExpiration: DateTime!
-  verifyId: String!
-  deactivated: Boolean!
 }

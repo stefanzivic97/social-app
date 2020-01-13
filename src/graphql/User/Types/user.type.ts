@@ -11,11 +11,11 @@ export default class User implements IUser {
     public dateOfBirth!: Date;
     public password!: string;
     public imageUrl!: string;
-    public verified!: Boolean;
-    public driveFolderId!: string;
-    public resetToken!: string;
-    public resetTokenExpiration!: Date;
-    public verifyId!: string;
-    public deactivated!: Boolean;
+    // public verified!: Boolean;
+    // public driveFolderId!: string;
+    // public resetToken!: string;
+    // public resetTokenExpiration!: Date;
+    // public verifyId!: string;
+    // public deactivated!: Boolean;
 }
 

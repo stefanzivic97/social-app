@@ -28,22 +28,22 @@ export abstract class IUser implements Partial<UserType> {
     @Field({ nullable: true })
     public imageUrl!: string;
 
-    @Field()
-    public verified!: Boolean;
+    // @Field()
+    // public verified!: Boolean;
 
-    @Field()
-    public driveFolderId!: string;
+    // @Field()
+    // public driveFolderId!: string;
 
-    @Field()
-    public resetToken!: string;
+    // @Field()
+    // public resetToken!: string;
 
-    @Field()
-    public resetTokenExpiration!: Date;
+    // @Field()
+    // public resetTokenExpiration!: Date;
 
-    @Field()
-    public verifyId!: string;
+    // @Field()
+    // public verifyId!: string;
 
-    @Field()
-    public deactivated!: Boolean;
+    // @Field()
+    // public deactivated!: Boolean;
 
 }

@@ -65,29 +65,29 @@ export default class User extends Model<User> {
     @Column({ type: DataType.STRING })
     public imageUrl!: string;
 
-    @AllowNull(false)
-    @Column({ type: DataType.BOOLEAN, defaultValue: false })
-    public verified!: Boolean;
+    // @AllowNull(false)
+    // @Column({ type: DataType.BOOLEAN, defaultValue: false })
+    // public verified!: Boolean;
 
-    // ! Need to be false
-    @AllowNull(true)
-    @Column({ type: DataType.STRING })
-    public driveFolderId!: string;
+    // // ! Need to be false
+    // @AllowNull(true)
+    // @Column({ type: DataType.STRING })
+    // public driveFolderId!: string;
 
-    @AllowNull(true)
-    @Column({ type: DataType.STRING })
-    public resetToken!: string;
+    // @AllowNull(true)
+    // @Column({ type: DataType.STRING })
+    // public resetToken!: string;
 
-    @AllowNull(true)
-    @Column({ type: DataType.DATE })
-    public resetTokenExpiration!: Date;
+    // @AllowNull(true)
+    // @Column({ type: DataType.DATE })
+    // public resetTokenExpiration!: Date;
 
-    @AllowNull(true)
-    @Column({ type: DataType.STRING })
-    public verifyId!: string;
+    // @AllowNull(true)
+    // @Column({ type: DataType.STRING })
+    // public verifyId!: string;
 
-    @Column({ type: DataType.BOOLEAN, defaultValue: false })
-    public deactivated!: Boolean;
+    // @Column({ type: DataType.BOOLEAN, defaultValue: false })
+    // public deactivated!: Boolean;
     
     /**
      * * Association 

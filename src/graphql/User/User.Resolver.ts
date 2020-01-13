@@ -18,7 +18,6 @@ import { create_model } from '../../models/db_options';
  * ! Error  * Hard to find problem
  */
 
-
 @Resolver() 
 export class UserResolver extends UserModel {
     
@@ -29,14 +28,15 @@ export class UserResolver extends UserModel {
      * @param UserInput  
      * @param ctx 
      */
-    @Mutation({ description: `# ? Registration ` })
-    public registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): UserType {
+    @Mutation(returns => UserType, { description: `# ? Registration ` })
+    public async registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): Promise<UserType> {
+        
         
         const uuid = uuidv4()
         const errors: { message: string }[] = [];
-
+        
         const { username, firstName, lastName, email, password, confirmPassword, imageUrl } = UserInput;
-
+        
         if (validator.isEmpty(username)) {
             errors.push({ message: 'Username is required!' });
         } else if (username.length < 4 || username.length > 8) {
@@ -84,65 +84,29 @@ export class UserResolver extends UserModel {
         //     verifyId: 'akjshdkjhask'
         // })
         
-        // const createduser = user.save()
+        // const proba = await user.save()
+        // console.log(proba.id);
         
-        // console.log(user.userDetailsId)
-
         
-        // console.log(UserInput)
-
-        // let meals = {
-        //     mealA: 'Breakfast',
-        //     mealB: 'Lunch',
-        //     mealC: 'Dinner'
-        //   };
-          
-        // const modelKey: { [key: string]: any } = {}
-
-        // const inp: any = UserInput;
-
-        // Object.keys(inp).map(function(key:any){
-        //     modelKey[key] = inp[key]
-        // });
-
-        // const user = new UserModel(modelKey)
-        // user.save()
-
-        // console.log(modelKey)
-        // console.log(inp)
-
-
-
-
-        // console.log(Object.keys(inp), Object.values(inp))
-
-
-        // console.log('Object=', inp)
-        // console.log('Array=',arr)
-
-
-        //   for (const key in UserInput) {
-        //     if (UserInput[i].hasOwnProperty('key') && UserInput[i].hasOwnProperty()) {
-        //         const element = UserInput[key];
-                
-        //     }
-        // }
-
-
-
-        //   for (let [key, value] of Object.entries(UserInput)) {
-        //     console.log(key + ':' + value);
-            
-        //   }
-
-
-        const user = create_model(UserModel, UserInput)
+        // const create = promisify(create_model)
         
-        // this.userCollection.push(user)
+        const user = await create_model(UserModel, UserInput)
+        
+        console.log(user.getPassword)
+        
+        // console.log('asdsadas', user.User.dataValues)
 
-        console.log( 'dasdasdsad',user)
-
-        return user
+    
+        return {
+            id: user.id,
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            dateOfBirth: user.dateOfBirth,
+            imageUrl: user.imageUrl,
+            password: user.getPassword
+        }
 
         // return {
         //     id: user.id,
@@ -151,14 +115,14 @@ export class UserResolver extends UserModel {
         //     lastName: user.lastName,
         //     email: user.email,
         //     dateOfBirth: user.dateOfBirth,
-        //     deactivated: user.deactivated,
-        //     driveFolderId: user.driveFolderId,
+        //     // deactivated: user.deactivated,
+        //     // driveFolderId: user.driveFolderId,
         //     imageUrl: user.imageUrl,
         //     password: user.getPassword,
-        //     resetToken: user.resetToken,
-        //     resetTokenExpiration: user.resetTokenExpiration,
-        //     verified: user.verified,
-        //     verifyId: user.verifyId
+        //     // resetToken: user.resetToken,
+        //     // resetTokenExpiration: user.resetTokenExpiration,
+        //     // verified: user.verified,
+        //     // verifyId: user.verifyId
         // }
         
     }
