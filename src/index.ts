@@ -1,12 +1,12 @@
 import 'reflect-metadata';
 import 'dotenv/config'
 import { buildSchema } from 'type-graphql';
-import { ApolloServer } from 'apollo-server-express';
-import express, { Application, Request, Response, NextFunction } from 'express';
-import { UserResolver } from './graphql/User/user.resolver';
-
-
 import { sequelize } from './models/Database';
+import { ApolloServer } from 'apollo-server-express';
+import { UserResolver } from './graphql/User/user.resolver';
+import express, { Application, Request, Response, NextFunction } from 'express';
+
+
 
 const port: any = process.env.PORT;
 const bootstrap = async (port: number) => {
@@ -75,3 +75,8 @@ const headers: object = {}
 // map[1] = true; // Curiously doesn't throws exception
 
 // console.log(map)
+
+
+import { UtilsLib } from './util/Utils.cl';
+const path = '../../importer/test_files';
+const u = new UtilsLib.Importer();
