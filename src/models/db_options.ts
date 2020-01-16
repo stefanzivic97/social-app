@@ -22,23 +22,17 @@ export const update_model_where: (model: any, input: object | {}, where: any) =>
     return await _model;
 }
 
-export const find_where: (model: any, input: object | {}, where: object | {}) => any = async (model, input, where) => {
-    const inp: any = input;
-    const _where: any = where;
-    const data_with_keys: { [key: string]: any } = {};
-    const options: { [key: string]: any } = {};
+export const find_one_where = async (model: any, where: {}) => {
+    const w: any = where;
+    const data: { [key: string]: any } = {}; 
 
-    Object.keys(_where).map((key: any) => {
-        data_with_keys[key] = _where[key];
+    Object.keys(w).map((key: any) => {
+        data[key] = w[key];
     });
-    
-    Object.keys(inp).map((key: any) => {
-        options[key] = inp[key];
-    })
-
-    const _model = await model.find(data_with_keys, { where: options });
-    return await _model;
-}
+    console.log('DATA ', data);
+    const _model = await model.findOne({ where: data });
+    return _model;
+}   
 
 export const read_all: (model: any) => any = async (model) => {
     // const _model = await 

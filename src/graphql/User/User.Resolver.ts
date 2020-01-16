@@ -7,7 +7,7 @@ import { UserModel } from '../../models/User/index';
 import { hashSync } from 'bcryptjs';
 import obj from '../../test';
 
-import { create_model } from '../../models/db_options';
+import { create_model, find_one_where } from '../../models/db_options';
 import { sendConfirmMail } from '../../util/Mail/mail';
 /**
  * @param of => UserType
@@ -32,13 +32,12 @@ export class UserResolver extends UserModel {
     })
     public async registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): Promise<UserType> {
         
-        const email_: Boolean = false;
+        const email_: Boolean = true;
 
-        const uuid = uuidv4()
         const errors: { message: string }[] = [];
         
         const { username, firstName, lastName, email, password, confirmPassword, imageUrl } = UserInput;
-
+        
         if (validator.isEmpty(username)) {
             errors.push({ message: 'Username is required!' });
         } else if (username.length < 4 || username.length > 8) {
@@ -63,38 +62,77 @@ export class UserResolver extends UserModel {
             errors.push({ message: 'Passwords not match!' });
         }
 
-        const checkEmailExist = (email: string) => {
-                   
+        
+        const email_check = await find_one_where(UserModel, { email })
+        if (email_check) {
+            throw new Error('Email exists already!')
+        }
+        
+        const checkEmailExist = async (email: string) => {
+            const e = await UserModel.findOne({ 
+                where: {
+                    email: email
+                }
+            });
+            return e;
+        };
+        
+        
+        const emailEx = await checkEmailExist(email)
+        // console.log(emailEx);
+        if (emailEx) {
+            throw new Error('User exists already!');
         }
 
+        
         
         if (errors.length > 0) {
             const error: { [key: string]: any } = new Error('Invalid input')
             error.data = errors;
             error.code = 422;
-            throw error
+            throw error;
         }
         
-        const user = await create_model(UserModel, UserInput)
-    
+        const user = await create_model(UserModel, UserInput);
+        console.log(user);
+        
         if (!user) {
-            throw new Error('user not created')
+            throw new Error('user not created');
         }
+        
+        const generateAuthId = async (user: any) => {
+            const uuid = uuidv4();
+            const authId = hashSync(`${user.id}`, 12);
+            return authId;
+        }
+        
 
-        const Confirm_Email_fn = async (key: Boolean) => {
+
+        /**
+         * * On and Off fn
+         * ? For email confirmation
+         * @param key Boolean true 'on', false 'off'
+         */
+        const Confirm_Email_fn = async (from: string, model: any, sub: string, key: Boolean) => {
             switch (key) {
                 case true: { 
                     try {
-                        console.log('Mail sent!')
+                        const authId = await generateAuthId(model.id)
+                        console.log('Mail sent!');
                         const send = sendConfirmMail({
-                            to: 'stefan.zivic.1997@gmail.com',
-                            from: 'test@test.com',
+                            to: model.email,
+                            from: from,
                             subject: 'Confirm mail',
-                            html: `<h1> hello ${user.name} </h1>`
+                            html: `
+                            <h1> 
+                                hello ${model.firstName}
+                            </h1>
+                            <h2>${authId}</h2>`
+                            
                         });
                         return send;
                     } catch (error) {
-                        console.log(error)
+                        console.log(error);
                     }
                     break;
                 }
@@ -107,14 +145,9 @@ export class UserResolver extends UserModel {
                     break;
             }
         }
+        Confirm_Email_fn('test@test.com', user, 'Confirm email', email_);
         
-       
-
-        Confirm_Email_fn(email_);
-        
-        
-            
-
+    
         return {
             id: user.id,
             username: user.username,
@@ -131,10 +164,10 @@ export class UserResolver extends UserModel {
     @Query(returns => [UserType], { nullable: true, description: `# ? Get all users ` })
     getAllUsers(): any {
         try {
-            let a: Object = {}
+            let a: Object = {};
             return a;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
     
