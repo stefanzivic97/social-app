@@ -1,6 +1,6 @@
 export const create_model = async (model: any, input: object) => {
     const reqExp = /[&<>"'/]/ig; 
-    const options: any = {
+    const options: { [match: string]: string }  = {
         '&': '&amp;',
         '<': '&lt;',
         '>': '&gt;',
@@ -10,7 +10,7 @@ export const create_model = async (model: any, input: object) => {
     };
     const sanitize = (data: string | number) => {
         if (typeof data === 'number') {
-            return;
+            return data;
         } else if (typeof data === 'string') {
             return data.replace(reqExp, (match)=>(options[match]));
         }
@@ -25,8 +25,9 @@ export const create_model = async (model: any, input: object) => {
         })
     }
     console.log('Pre: \n', input)
-    iterAll(input)
     // console.table(input)
+    iterAll(input)
+    const a = Object.values(input)
     console.log('Posle: ', input)
     const _model = new model(input);
     return await _model.save();

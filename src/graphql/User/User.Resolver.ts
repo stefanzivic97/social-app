@@ -1,4 +1,4 @@
-import { Resolver, Field, Args, Mutation, Arg, Ctx, Query } from 'type-graphql';
+import { Resolver, Mutation, Arg, Ctx, Query } from 'type-graphql';
 import { UserType, AddUserDataInput } from './Types/index';
 import { Context } from 'vm';
 import validator from 'validator';
