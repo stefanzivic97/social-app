@@ -1,12 +1,34 @@
-export const create_model: ( model: any, input: object | {}) => any = async (model, input) => {
-    const inp: any = input;
-    const data_with_keys: { [key: string]: any } = {}
-    
-    Object.keys(inp).map((key: any) => {
-        data_with_keys[key] = inp[key];
-    });
-
-    const _model = new model(data_with_keys);
+export const create_model = async (model: any, input: object) => {
+    const reqExp = /[&<>"'/]/ig; 
+    const options: any = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&guot;',
+        "'": '&#x27;',
+        '/': '&#x2F;'
+    };
+    const sanitize = (data: string | number) => {
+        if (typeof data === 'number') {
+            return;
+        } else if (typeof data === 'string') {
+            return data.replace(reqExp, (match)=>(options[match]));
+        }
+    }
+    const iterAll = (object: any) => {
+        Object.keys(object).forEach((k) => {
+            if (object[k] && typeof object[k] === 'object') {
+                iterAll(object[k]);
+                return;
+            }
+            object[k] = sanitize(object[k]);
+        })
+    }
+    console.log('Pre: \n', input)
+    iterAll(input)
+    // console.table(input)
+    console.log('Posle: ', input)
+    const _model = new model(input);
     return await _model.save();
 }
 

@@ -5,10 +5,11 @@ import validator from 'validator';
 import uuidv4 from 'uuid/v4'
 import { UserModel } from '../../models/User/index';
 import { hashSync } from 'bcryptjs';
-import obj from '../../test';
+import { exec } from 'child_process';
 
 import { create_model, find_one_where } from '../../models/db_options';
 import { sendConfirmMail } from '../../util/Mail/mail';
+
 /**
  * @param of => UserType
  * ?        * Only if export default class { ...resolvers }
@@ -33,6 +34,8 @@ export class UserResolver extends UserModel {
     public async registerUser(@Arg("UserInput", { nullable: false }) UserInput: AddUserDataInput, @Ctx() ctx: Context ): Promise<UserType> {
         
         const email_: Boolean = true;
+
+        ctx.res.cookie('assdsadsdad','sdfd');
 
         const errors: { message: string }[] = [];
         
@@ -94,7 +97,7 @@ export class UserResolver extends UserModel {
         }
         
         const user = await create_model(UserModel, UserInput);
-        console.log(user);
+        // console.log(user);
         
         if (!user) {
             throw new Error('user not created');
@@ -124,10 +127,12 @@ export class UserResolver extends UserModel {
                             from: from,
                             subject: 'Confirm mail',
                             html: `
-                            <h1> 
+                            <div style="border: 1px solid black; width: 100%;">
+                            <p style="margin-left: auto; width: 20%;"> 
                                 hello ${model.firstName}
-                            </h1>
-                            <h2>${authId}</h2>`
+                            <p>
+                            </div>
+                            <h2><a style="color:red;" href="${authId}">link</a></h2>`
                             
                         });
                         return send;
@@ -148,6 +153,20 @@ export class UserResolver extends UserModel {
         Confirm_Email_fn('test@test.com', user, 'Confirm email', email_);
         
     
+        // exec('ls -la', (err, stdout, stderr) => {
+        //     if (err) {
+        //         console.log('error: ', err.message);
+        //         return;
+        //     }
+        //     if (stderr) {
+        //         console.log('stderr: ', stderr);
+        //         return;
+        //     }
+        //     console.log(stdout);
+            
+        // })
+
+
         return {
             id: user.id,
             username: user.username,
